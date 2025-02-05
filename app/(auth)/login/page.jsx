@@ -82,7 +82,7 @@ export default function Component() {
                 size="lg"
                 type="text"
                 onKeyDown={(e) => {
-                  alert(`${typeof(e.key)} : ${e.key}`)
+                  alert(`${typeof(e.key)} : ${e.key} == ${e.key === "Unidentified"}`)
                   if (
                     e.key === "Unidentified" &&
                     e.key !== "Backspace" &&
