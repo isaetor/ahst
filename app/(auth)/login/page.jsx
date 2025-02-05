@@ -89,7 +89,6 @@ export default function Component() {
                 type="tel"
                 value={phoneNumber}
                 onKeyDown={(e) => {
-                  setPhoneNumber(e.key);
                   if (
                     e.key === 'Undefined' &&
                     e.key !== "Backspace" &&
@@ -121,7 +120,7 @@ export default function Component() {
                 <InputOtp
                   className="mx-auto"
                   dir="ltr"
-                  length={4}
+                  length={5}
                   size="lg"
                   value={otp}
                   onValueChange={setOtp}
@@ -145,6 +144,7 @@ export default function Component() {
                       )}
                     </button>
                   }
+                  size="lg"
                   label="کلمه عبور"
                   labelPlacement="outside"
                   placeholder="لطفا کلمه عبور را وارد کنید"
