@@ -5,7 +5,7 @@ import { Input } from "@heroui/input";
 import { InputOtp } from "@heroui/input-otp";
 import { Link } from "@heroui/link";
 import { ArrowRight, Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Component() {
   const [step, setStep] = useState(1);
@@ -14,6 +14,30 @@ export default function Component() {
   const [otp, setOtp] = useState("");
   const [invalid, setInvalid] = useState(false);
   const [timeKeyUp, setTimeKeyUp] = useState(0);
+
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (seconds > 0) {
+        setSeconds(seconds - 1);
+      }
+
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(interval);
+        } else {
+          setSeconds(59);
+          setMinutes(minutes - 1);
+        }
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  });
 
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
@@ -24,6 +48,8 @@ export default function Component() {
 
     setPhoneNumber(data.phoneNumber);
     setStep(2);
+    setMinutes(2);
+    setSeconds(59);
   };
 
   const verifyOtpCode = (event) => {
@@ -35,7 +61,7 @@ export default function Component() {
   return (
     <>
       {step === 2 && (
-        <div className="max-w-72 mx-auto">
+        <div className="max-w-sm sm:max-w-72 mx-auto">
           <Button
             isIconOnly
             className="text-default-700"
@@ -59,12 +85,18 @@ export default function Component() {
               />
             </svg>
             <p className="text-xl font-medium mb-1">
-              {step === 1 ? "ورود یا ثبت نام" : "کد تایید را وارد کنید"}
+              {step === 1
+                ? "ورود یا ثبت نام"
+                : passMethodLogin
+                  ? "کلمه عبور را وارد کنید"
+                  : "کد تایید را وارد کنید"}
             </p>
             <p className="text-small text-default-500">
               {step === 1
                 ? "برای ادامه وارد حساب کاربری خود شوید"
-                : `کد 4 رقمی به شماره ${phoneNumber} ارسال شد.`}
+                : passMethodLogin
+                  ? "جهت ورود به حساب کلمه عبور خود را وارد کنید"
+                  : `کد 4 رقمی به شماره ${phoneNumber} ارسال شد.`}
             </p>
           </div>
           {step === 1 && (
@@ -107,7 +139,7 @@ export default function Component() {
                   } else {
                     setTimeKeyUp(
                       setTimeout(() => {
-                        if(phoneNumber.length > 0){
+                        if (phoneNumber.length > 0) {
                           setInvalid(true);
                         }
                       }, 1000)
@@ -137,14 +169,40 @@ export default function Component() {
               onSubmit={verifyOtpCode}
             >
               {!passMethodLogin && (
-                <InputOtp
-                  className="mx-auto"
-                  dir="ltr"
-                  length={5}
-                  size="lg"
-                  value={otp}
-                  onValueChange={setOtp}
-                />
+                <>
+                  <InputOtp
+                    className="mx-auto"
+                    dir="ltr"
+                    length={5}
+                    size="lg"
+                    value={otp}
+                    onValueChange={setOtp}
+                  />
+                  <div className="flex items-center justify-between gap-2 w-full text-sm text-default-500">
+                    {seconds > 0 || minutes > 0 ? (
+                      <p>
+                        زمان باقیمانده :{" "}
+                        {minutes < 10 ? `0${minutes}` : minutes}:
+                        {seconds < 10 ? `0${seconds}` : seconds}
+                      </p>
+                    ) : (
+                      <p>کد دریافت نکردید؟</p>
+                    )}
+
+                    <Link
+                      isDisabled={seconds > 0 || minutes > 0}
+                      className="cursor-pointer"
+                      size="sm"
+                      color={seconds > 0 || minutes > 0 ? "foreground" : "primary"}
+                      onPress={() => {
+                        setMinutes(2);
+                        setSeconds(59);
+                      }}
+                    >
+                      ارسال مجدد
+                    </Link>
+                  </div>
+                </>
               )}
 
               {passMethodLogin && (
@@ -167,7 +225,6 @@ export default function Component() {
                   size="lg"
                   label="کلمه عبور"
                   labelPlacement="outside"
-                  placeholder="لطفا کلمه عبور را وارد کنید"
                   type={isVisible ? "text" : "password"}
                 />
               )}

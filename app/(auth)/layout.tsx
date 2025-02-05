@@ -5,8 +5,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative flex flex-col h-screen">
-      <main className="container p-4 flex-grow">
+    <div className="relative flex flex-col h-[calc(100vh_-_48px)]">
+      <main className="container mx-auto p-4 flex-grow">
         {children}
       </main>
       <footer className="w-full flex items-center justify-center py-3">
