@@ -89,9 +89,9 @@ export default function Component() {
                 type="tel"
                 value={phoneNumber}
                 onKeyDown={(e) => {
-                  alert(e.key)
+                  setPhoneNumber(e.key);
                   if (
-                    e.key === undefined &&
+                    e.key === 'Undefined' &&
                     e.key !== "Backspace" &&
                     e.key !== "Delete" &&
                     e.key !== "ArrowLeft" &&
