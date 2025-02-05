@@ -80,7 +80,7 @@ export default function Component() {
                 maxLength="11"
                 name="phoneNumber"
                 size="lg"
-                type="tel"
+                type="text"
                 onKeyDown={(e) => {
                   alert(`${typeof(e.key)} : ${e.key}`)
                   if (
