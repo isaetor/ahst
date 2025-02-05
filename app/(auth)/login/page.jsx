@@ -91,6 +91,7 @@ export default function Component() {
                 onKeyDown={(e) => {
                   alert(e.key)
                   if (
+                    e.key === undefined &&
                     e.key !== "Backspace" &&
                     e.key !== "Delete" &&
                     e.key !== "ArrowLeft" &&
