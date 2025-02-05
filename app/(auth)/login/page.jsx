@@ -82,7 +82,7 @@ export default function Component() {
                 maxLength="11"
                 name="phoneNumber"
                 size="lg"
-                type="text"
+                type="tel"
                 onKeyDown={(e) => {
                   if (
                     !(
