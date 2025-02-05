@@ -82,8 +82,8 @@ export const Navbar = () => {
           <Button
             as={Link}
             className="text-sm font-normal text-default-600 bg-default-100"
+            endContent={<LogIn />}
             href={siteConfig.links.login}
-            startContent={<LogIn />}
             variant="flat"
           >
             <span className="mb-1">ورود یا ثبت‌نام</span>

@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+[data-slot="helper-wrapper"] {
+    margin-top: 6px;
+}
+button,
+[role="button"] {
+    direction: ltr;
+}
