@@ -84,6 +84,8 @@ export default function Component() {
                 onKeyDown={(e) => {
                   alert(`${typeof(e.key)} : ${e.key}`)
                   if (
+                    e.key === "Unidentified" &&
+                    e.key !== "Backspace" &&
                     e.key !== "Backspace" &&
                     e.key !== "Delete" &&
                     e.key !== "ArrowLeft" &&
