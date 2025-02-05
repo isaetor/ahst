@@ -60,7 +60,7 @@ export default function Component() {
                 d="M17.6482 10.1305L15.8785 7.02583L7.02979 22.5499H10.5278L17.6482 10.1305ZM19.8798 14.0457L18.11 17.1983L19.394 19.4511H16.8453L15.1056 22.5499H24.7272L19.8798 14.0457Z"
                 fill="currentColor"
                 fillRule="evenodd"
-              ></path>
+              />
             </svg>
             <p className="text-xl font-medium mb-1">
               {step === 1 ? "ورود یا ثبت نام" : "کد تایید را وارد کنید"}
@@ -78,25 +78,18 @@ export default function Component() {
               onSubmit={sendOtpCode}
             >
               <Input
-                dir="ltr"
-                endContent={
-                  <div
-                    className="pointer-events-none flex items-center mr-2 border-r-2 border-default-300 pr-2"
-                    dir="ltr"
-                  >
-                    <span className="text-default-400">+۹۸</span>
-                  </div>
-                }
-                size="lg"
-                label="شماره موبایل"
-                labelPlacement="outside"
-                type="tel"
-                maxLength="11"
                 autoComplete="off"
                 description="ورود شما  به معنی پذیرش قوانین و مقررات این سرویس است."
+                dir="ltr"
+                label="شماره موبایل"
+                labelPlacement="outside"
+                maxLength="11"
                 name="phoneNumber"
-                className="data-[slot=helper-wrapper]:pt-4"
+                size="lg"
+                type="tel"
+                value={phoneNumber}
                 onKeyDown={(e) => {
+                  alert(e.key)
                   if (
                     e.key !== "Backspace" &&
                     e.key !== "Delete" &&
@@ -109,16 +102,6 @@ export default function Component() {
                     e.preventDefault();
                   }
                 }}
-                onBlur={() => {
-                  if (/^09([0-9]{2})-?[0-9]{3}-?[0-9]{4}$/.test(phoneNumber)) {
-                    setIsInvalidPhoneNumber(false);
-                  } else {
-                    setIsInvalidPhoneNumber(true);
-                  }
-                }}
-                errorMessage="شماره موبایل باید با ۰ یا ۹ شروع شده و بیش از ۱۱ رقم نباشد."
-                isInvalid={isInvalidPhoneNumber}
-                value={phoneNumber}
                 onValueChange={setPhoneNumber}
               />
               <Button className="w-full" color="primary" type="submit">
@@ -135,12 +118,12 @@ export default function Component() {
             >
               {!passMethodLogin && (
                 <InputOtp
-                  size="lg"
                   className="mx-auto"
+                  dir="ltr"
                   length={4}
+                  size="lg"
                   value={otp}
                   onValueChange={setOtp}
-                  dir="ltr"
                 />
               )}
 
@@ -172,8 +155,8 @@ export default function Component() {
                 تایید و ادامه
               </Button>
               <Link
-                size="sm"
                 className="mx-auto mt-4 cursor-pointer"
+                size="sm"
                 onPress={() => setPassMethodLogin(!passMethodLogin)}
               >
                 {passMethodLogin
