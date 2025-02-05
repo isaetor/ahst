@@ -11,16 +11,10 @@ export default function Component() {
   const [step, setStep] = useState(1);
   const [passMethodLogin, setPassMethodLogin] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [isInvalidPhoneNumber, setIsInvalidPhoneNumber] = useState(false);
   const [otp, setOtp] = useState("");
+
   const [isVisible, setIsVisible] = useState(false);
-
   const toggleVisibility = () => setIsVisible(!isVisible);
-
-  const changePhoneNumer = (e) => {
-    console.log("Dsadsa");
-    console.log(e);
-  };
 
   const sendOtpCode = (e) => {
     e.preventDefault();
@@ -87,10 +81,9 @@ export default function Component() {
                 name="phoneNumber"
                 size="lg"
                 type="tel"
-                value={phoneNumber}
                 onKeyDown={(e) => {
+                  alert(`${typeof(e.key)} : ${e.key}`)
                   if (
-                    e.key === 'Undefined' &&
                     e.key !== "Backspace" &&
                     e.key !== "Delete" &&
                     e.key !== "ArrowLeft" &&
@@ -102,7 +95,6 @@ export default function Component() {
                     e.preventDefault();
                   }
                 }}
-                onValueChange={setPhoneNumber}
               />
               <Button className="w-full" color="primary" type="submit">
                 دریافت کد
