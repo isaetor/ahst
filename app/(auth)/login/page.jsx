@@ -12,6 +12,8 @@ export default function Component() {
   const [passMethodLogin, setPassMethodLogin] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState("");
+  const [invalid, setInvalid] = useState(false);
+  const [timeKeyUp, setTimeKeyUp] = useState(0);
 
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
@@ -82,23 +84,47 @@ export default function Component() {
                 size="lg"
                 type="text"
                 onKeyDown={(e) => {
-                  alert(`${typeof(e.key)} : ${e.key} == ${e.key === "Unidentified"}`)
                   if (
-                    e.key === "Unidentified" &&
-                    e.key !== "Backspace" &&
-                    e.key !== "Backspace" &&
-                    e.key !== "Delete" &&
-                    e.key !== "ArrowLeft" &&
-                    e.key !== "ArrowRight" &&
-                    e.key !== "Enter" &&
-                    e.key !== "Tab" &&
-                    !/^[0-9]*$/.test(e.key)
+                    !(
+                      (e.key >= 0 && e.key <= 9) ||
+                      e.key == "Delete" ||
+                      e.key == "ArrowLeft" ||
+                      e.key == "ArrowRight" ||
+                      e.key == "Backspace" ||
+                      e.key == "Enter" ||
+                      e.key == "Tab"
+                    )
                   ) {
                     e.preventDefault();
                   }
                 }}
+                onKeyUp={() => {
+                  clearTimeout(timeKeyUp);
+                  setInvalid(false);
+
+                  if (/^09([0-9]{2})-?[0-9]{3}-?[0-9]{4}$/.test(phoneNumber)) {
+                    setInvalid(false);
+                  } else {
+                    setTimeKeyUp(
+                      setTimeout(() => {
+                        if(phoneNumber.length > 0){
+                          setInvalid(true);
+                        }
+                      }, 1000)
+                    );
+                  }
+                }}
+                errorMessage="فرمت شماره موبایل اشتباه است"
+                isInvalid={invalid}
+                value={phoneNumber}
+                onValueChange={setPhoneNumber}
               />
-              <Button className="w-full" color="primary" type="submit">
+              <Button
+                isDisabled={invalid || phoneNumber.length < 11}
+                className="w-full"
+                color="primary"
+                type="submit"
+              >
                 دریافت کد
               </Button>
             </Form>
