@@ -113,8 +113,8 @@ export const Navbar = () => {
               <DropdownMenu aria-label="User Actions" variant="flat">
                 <DropdownSection showDivider>
                   <DropdownItem key="profile">
-                    <p className="font-semibold mb-1">کاربرتمچه</p>
-                    <p className="text-default-400">09010018995</p>
+                    <p className="font-semibold mb-1">کاربرسایت</p>
+                    <p className="text-default-400">09121111111</p>
                   </DropdownItem>
                 </DropdownSection>
                 <DropdownItem key="settings">حساب کاربری</DropdownItem>
