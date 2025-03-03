@@ -5,7 +5,7 @@
 [data-slot="helper-wrapper"] {
     margin-top: 6px;
 }
-button,
-[role="button"] {
-    direction: ltr;
+/*   */
+[data-slot="error-message"] {
+    direction: rtl;
 }

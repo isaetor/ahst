@@ -4,8 +4,10 @@ import clsx from "clsx";
 
 import { Providers } from "./providers";
 
-import { siteConfig } from "@/config/site";
 import { ahst } from "@/config/fonts";
+import { siteConfig } from "@/config/site";
+
+
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
@@ -24,11 +26,12 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+
   return (
     <html suppressHydrationWarning lang="fa" dir="rtl">
       <head />
@@ -38,7 +41,7 @@ export default function RootLayout({
           ahst.className,
         )}
       >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+        <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
           {children}
         </Providers>
       </body>
