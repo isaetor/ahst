@@ -15,7 +15,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const user = await User.findOne({
           phoneNumber: credentials.phoneNumber,
         });
+
         if (user) return user;
+
         return null;
       },
     }),
